@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "testagent-nava",
+  "private_key_id": "6ec5f3b4299ac61da82c7a0eb1d4e0d3d73f1abc",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQClBJBHkv3EPc+W\npSaCETHAu+DynIItr0ZzGBiiUOMoSyEsJ6jtUuwZtZAa47+Xec87Hq4bvaLQCC6U\ncMDewv1F15kYBRShhtUK19RyDops88II7LtvfARoEDD2YnokNPCyesdFIAXT+b4O\nhEnQXh6eUH+BvgryTvnfxJeX8JbSQiWD5eut3N9LXpPo1D260jpFf15g5nmE4IBp\n8OGiFz1QzYv+fCpXJzJ6F1gurHJp1D193trP+2HrCPHzEQ0+8NcIkN7Wj/gJRwOQ\neWqg65Nt+4rOWJw5Ml9AI0Dc1rWfalHUye2gZpMjI2scViCIzdGHPQebv5M+pq6A\nncf0EQw/AgMBAAECggEACKgDDq4fJFBaUvNsTdmHDi56lIQM+LQ/hIr0DG6SGatv\nQVQisoztc7IWG4wjxcUhT6h5WV0vbNFn6mgU6pFvrvCqNfda1UXCHu3rw3dZO00L\nTIhESfi1CwomZRZWO1hHmKU6u6aOh7VnHVJneyNt8uRcsszqBc1l6587J2UfXWtH\nzyza667N9ccTz+xjJ/qeJwrh7cKOsTRsuCbHtSGUkjNYJQaIftFRPwhRgwDKPfUq\nBq6r2r/Ud2nKtCX9OuGgm+6zFuvvswmfNVEoTvxKvXVL8vuzAgWZ2kLy8xlGOQpp\nZbNY1eWAbnKV2R+AEksGbApQUsrb1RFyKGGZv2d5mQKBgQDewwoV7OHuhmGaK8zG\nbcW5NbHII0CG2ZIAM8QSmx1tSm6BnUViS3mCX3KYBUHEVmriHQDE/ZjeEzvydzhS\n5sVXiTMC1Bzt5pUgyXhHakZaSHgh+Xvjn6dFYgPa2pehTJqzt853PHzCqAJJuACL\n0ZNVE966SAgCQJhxZgttwH7ElQKBgQC9o9elrFeMYRXVt/NgNfiMYmn/VmisD+ko\n3SQ8BMjF4c36ctf4ULtqp8bIfRJV6tyZGZsUeK2R/paj9co4u1YDT+Nfng7ZPDkb\nSkp4jOJj2tftyKpctZ/gH/8TWV1JyYOevj1CnnXTojC8RNdxqzNTqQYsGNrZIhYr\nGJxtbHekgwKBgGYd7NKuO8gXbEi7iWzxR3Gm7q+7kUoAFRDoqhqJZw0B0PSz/umX\nhcVBMgwEZOi3YNn0x7SGOHydPp7hDj3asl51c5/5UqWwTW6xTOUYD9Y1YHTapHNt\nbcW9r9y01kvIDScTvJ8maF7nm9zlb8KouSyIJlMo0BsQN5HMYLLYSoSdAoGBAKG4\n5MFrbKnRbX55xfopbJHDp6NRvCfn1a28kRcB+XoPa8oGQDmKF5oIBFSbnJRams+R\nb5gQpeyYET038cFZuStP6JZ1QzJs0kJ8o2+Urcf8LCKi+u3fEb1fa/bDQfQX/r/U\neoeifNcDPM6BYr2UA0x4G0Rl2dRL5l3QOi5yzsEjAoGAQLJwxqRSrHe5pXlx9RNr\nIwSuxN8Qcs2ley4Rt6l6KnXxRuBKsLWqtiGMgeJFicwFYODg2gCUONdqdMq69m3d\n7QSlDGklUIpn/eyZoBO5roP7rcvpQvX3OG/rmjlqz3ClhxIoQOZPFoU21meOL33w\nnGlGsLGQ+Op5/+/Xo2O5q8A=\n-----END PRIVATE KEY-----\n",
+  "client_email": "testagent@testagent-nava.iam.gserviceaccount.com",
+  "client_id": "107185636751232588651",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/testagent%40testagent-nava.iam.gserviceaccount.com"
+}
