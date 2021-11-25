@@ -1,8 +1,7 @@
 from social_interaction_cloud.action import ActionRunner
 from social_interaction_cloud.basic_connector import BasicSICConnector
 
-
-class Ask_library:
+class AskLibrary:
 
     def __init__(self, server_ip: str, dialogflow_key_file: str, dialogflow_agent_id: str):
         self.sic = BasicSICConnector(server_ip, 'en-US', dialogflow_key_file, dialogflow_agent_id)

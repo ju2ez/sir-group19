@@ -1,3 +1,4 @@
+from ask_library import AskLibrary
 from transitions import Machine
 
 from social_interaction_cloud.action import ActionRunner
@@ -13,13 +14,17 @@ class ExampleRobot(object):
     # states = ['asleep', 'awake', 'introduced', 'asked name', 'recognised', 'not recognised', 'asked age', 'wrong age', 'right age', 'explaining workout', 'select workout program', 
     # 'work out 1', 'work out 2', 'work out 3', 'finish workout', 'logging of']
 
-    states = ['asleep', 'wake_up', 'introduced', 'name_asked', 'recognised', 'workout', 'finish_workout', 'logging_of']
-
+    states = ['asleep', 'wake_up', 'introduced', 'ask_name', 'ask_weight', 'ask_height', 'recognised', 'workout', 'finish_workout', 'logging_of']
 
     def __init__(self, sic: BasicSICConnector):
         self.sic = sic
         self.action_runner = ActionRunner(self.sic)
         # self.name = namelist
+
+        self.ask_nao = AskLibrary('127.0.0.1',
+                              'testagent-nava-6ec5f3b4299a.json',
+                              'testagent-nava')
+
 
         self.user_model = {}
         self.recognition_manager = {'attempt_success': False, 'attempt_number': 0}
@@ -27,8 +32,10 @@ class ExampleRobot(object):
         transitions = [
             {'trigger':'start', 'source': 'asleep', 'dest': 'wake_up'},
             {'trigger': 'wake_up_2', 'source': 'wake_up', 'dest': 'introduced'},
-            {'trigger': 'ask_name', 'source': 'introduced', 'dest': 'name_asked'},
-            {'trigger': 'recognise', 'source': 'name_asked', 'dest': 'recognised'},
+            {'trigger': 'ask_name', 'source': 'introduced', 'dest': 'ask_name'},
+            {'trigger': 'ask_height', 'source': 'ask_name', 'dest': 'ask_weight'},
+            {'trigger': 'ask_weight', 'source': 'ask_height', 'dest': 'recognise'},
+            {'trigger': 'recognise', 'source': 'ask_weight', 'dest': 'recognised'},
             {'trigger': 'start_workout', 'source': 'recognised', 'dest': 'workout'},
             {'trigger': 'timer', 'source': 'workout', 'dest': 'finish_workout'},
             {'trigger': 'say_goodbye', 'source': 'finish_workout', 'dest': 'logging_of'} ]
@@ -39,7 +46,6 @@ class ExampleRobot(object):
             print(self.state)
             self.start()
 
-        
         if self.state == 'wake_up':
             # print("test2")
             self.wake_up_2()
@@ -60,6 +66,40 @@ class ExampleRobot(object):
                     self.ask_name_again()
             print(self.state)
 
+
+        if self.state == 'ask_height':
+            correct, name = self._ask_name()
+            while self.state == 'ask_height':
+                if correct == True:
+                    # self.recognise(name)
+                    self.recognise()
+                else:
+                    self.ask_name_again()
+            print(self.state)
+
+
+        if self.state == 'ask_weight':
+            correct, name = self._ask_name()
+            while self.state == 'ask_height':
+                if correct == True:
+                    # self.recognise(name)
+                    self.recognise()
+                else:
+                    self.ask_name_again()
+            print(self.state)
+
+    
+        if self.state == 'ask_age':
+            correct, name = self._ask_name()
+            while self.state == 'ask_age':
+                if correct == True:
+                    # self.recognise(name)
+                    self.recognise()
+                else:
+                    self.ask_name_again()
+            print(self.state)
+
+
         if self.state == 'recognised':
             self.start_workout()
             print(self.state)
@@ -67,12 +107,13 @@ class ExampleRobot(object):
         if self.state == 'workout':
             self.timer()
             print(self.state)
+            self.workout() 
+            self.ask_nao.ask_confirmation()
 
         if self.state == 'finish_workout':
             self.say_goodbye()
             print(self.state)
 
-        
         if self.state == 'logging_of':
             self.saying_goodbye()
             self.sic.stop()
@@ -81,12 +122,6 @@ class ExampleRobot(object):
             # self.say_goodbye()
             # print(self.state)
 
-
-
-
-
-
-    
 
     def wake_up(self) -> None:
         self.action_runner.load_waiting_action('set_language', 'en-US')
@@ -153,6 +188,8 @@ class ExampleRobot(object):
         # start workout sequence
         # Nao first says name of exxercise. Then demonstrates exercise. Counts down. 
 
+
+
     def finish(self) -> None:
         saying_goodbye(self)
 
@@ -171,6 +208,6 @@ class StateMachineExample(object):
         self.sic.stop()
 
 example = StateMachineExample('127.0.0.1',
-                              '<dialogflow_key_file.json>',
-                              '<dialogflow_agent_id>')
+                              'testagent-nava-6ec5f3b4299a.json',
+                              'testagent-nava')
 example.run()
