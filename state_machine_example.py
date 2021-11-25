@@ -33,7 +33,8 @@ class ExampleRobot(object):
             {'trigger':'start', 'source': 'asleep', 'dest': 'wake_up'},
             {'trigger': 'wake_up_2', 'source': 'wake_up', 'dest': 'introduced'},
             {'trigger': 'ask_name', 'source': 'introduced', 'dest': 'ask_height'},
-            {'trigger': 'ask_height', 'source': 'ask_name', 'dest': 'ask_weight'},
+            {'trigger': 'ask_age', 'source': 'ask_name', 'dest': 'ask_height'},
+            {'trigger': 'ask_height', 'source': 'ask_age', 'dest': 'ask_weight'},
             {'trigger': 'ask_weight', 'source': 'ask_height', 'dest': 'recognised'},
             {'trigger': 'recognise', 'source': 'ask_weight', 'dest': 'recognised'},
             {'trigger': 'start_workout', 'source': 'recognised', 'dest': 'workout'},
@@ -56,7 +57,7 @@ class ExampleRobot(object):
             self.ask_name()
             print(self.state)
 
-        if self.state == 'name_asked':
+        if self.state == 'ask_name':
             correct, name = self._ask_name()
             while self.state == 'name_asked':
                 if correct == True:
@@ -80,13 +81,8 @@ class ExampleRobot(object):
 
     
         if self.state == 'ask_age':
-            correct, name = self._ask_name()
-            while self.state == 'ask_age':
-                if correct == True:
-                    # self.recognise(name)
-                    self.recognise()
-                else:
-                    self.ask_name_again()
+            #correct, name = self._ask_name()
+            self.ask_height()
             print(self.state)
 
 
@@ -123,7 +119,8 @@ class ExampleRobot(object):
         self.action_runner.run_waiting_action('say_animated', 'Hi I am Nao and I am a social robot. Let\'s be workout buddies!')
 
 
-    def _ask_name(self) -> None:
+    def ask_name(self) -> None:
+        self.action_runner.run_waiting_action('say_animated', 'Hello')
         return True, ["name"]
         
 
