@@ -32,9 +32,9 @@ class ExampleRobot(object):
         transitions = [
             {'trigger':'start', 'source': 'asleep', 'dest': 'wake_up'},
             {'trigger': 'wake_up_2', 'source': 'wake_up', 'dest': 'introduced'},
-            {'trigger': 'ask_name', 'source': 'introduced', 'dest': 'ask_name'},
+            {'trigger': 'ask_name', 'source': 'introduced', 'dest': 'ask_height'},
             {'trigger': 'ask_height', 'source': 'ask_name', 'dest': 'ask_weight'},
-            {'trigger': 'ask_weight', 'source': 'ask_height', 'dest': 'recognise'},
+            {'trigger': 'ask_weight', 'source': 'ask_height', 'dest': 'recognised'},
             {'trigger': 'recognise', 'source': 'ask_weight', 'dest': 'recognised'},
             {'trigger': 'start_workout', 'source': 'recognised', 'dest': 'workout'},
             {'trigger': 'timer', 'source': 'workout', 'dest': 'finish_workout'},
@@ -69,23 +69,13 @@ class ExampleRobot(object):
 
         if self.state == 'ask_height':
             correct, name = self._ask_name()
-            while self.state == 'ask_height':
-                if correct == True:
-                    # self.recognise(name)
-                    self.recognise()
-                else:
-                    self.ask_name_again()
+            self.ask_weight()
             print(self.state)
 
 
         if self.state == 'ask_weight':
             correct, name = self._ask_name()
-            while self.state == 'ask_height':
-                if correct == True:
-                    # self.recognise(name)
-                    self.recognise()
-                else:
-                    self.ask_name_again()
+            self.recognised()
             print(self.state)
 
     
@@ -156,13 +146,6 @@ class ExampleRobot(object):
 
         print("\n\n state: Recognised \n\n")
         return True
-
-    def on_intent(self, detection_result: DetectionResult) -> None:
-        if detection_result and detection_result.intent == 'answer_name' and len(detection_result.parameters) > 0:
-            self.user_model['name'] = detection_result.parameters['name'].struct_value['name']
-            self.recognition_manager['attempt_success'] = True
-        else:
-            self.recognition_manager['attempt_number'] += 1
 
     def reset_recognition_management(self) -> None:
         self.recognition_manager.update({'attempt_success': False, 'attempt_number': 0})
