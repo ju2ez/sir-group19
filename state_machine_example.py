@@ -9,10 +9,6 @@ class ExampleRobot(object):
     """Example that shows how to implement a State Machine with pyTransitions. For more information go to
     https://socialrobotics.atlassian.net/wiki/spaces/CBSR/pages/616398873/Python+Examples#State-Machines-with-PyTransitions"""
 
-    # states = ['asleep', 'awake', 'introduced', 'asked_name', 'got_acquainted']
-
-    # states = ['asleep', 'awake', 'introduced', 'asked name', 'recognised', 'not recognised', 'asked age', 'wrong age', 'right age', 'explaining workout', 'select workout program', 
-    # 'work out 1', 'work out 2', 'work out 3', 'finish workout', 'logging of']
 
     states = ['asleep', 'wake_up', 'introduced', 'ask_name', 'ask_weight', 'ask_height', 'recognised', 'workout', 'finish_workout', 'logging_of']
 
@@ -24,7 +20,6 @@ class ExampleRobot(object):
         self.ask_nao = AskLibrary('127.0.0.1',
                               'testagent-nava-6ec5f3b4299a.json',
                               'testagent-nava')
-
 
         self.user_model = {}
         self.recognition_manager = {'attempt_success': False, 'attempt_number': 0}
@@ -54,11 +49,13 @@ class ExampleRobot(object):
         
         if self.state == 'introduced':
             self.ask_name()
+
             print(self.state)
 
         if self.state == 'name_asked':
             correct, name = self._ask_name()
             while self.state == 'name_asked':
+                # So right now, when a name is not recognised, it gets stuck in a loop. 
                 if correct == True:
                     # self.recognise(name)
                     self.recognise()
@@ -68,13 +65,13 @@ class ExampleRobot(object):
 
 
         if self.state == 'ask_height':
-            correct, name = self._ask_name()
+            correct, name = self._ask_height()
             while self.state == 'ask_height':
                 if correct == True:
                     # self.recognise(name)
                     self.recognise()
                 else:
-                    self.ask_name_again()
+                    self.ask_height_again()
             print(self.state)
 
 
@@ -82,7 +79,7 @@ class ExampleRobot(object):
             correct, name = self._ask_name()
             while self.state == 'ask_height':
                 if correct == True:
-                    # self.recognise(name)
+                    # self.recognise(height)
                     self.recognise()
                 else:
                     self.ask_name_again()
@@ -90,13 +87,13 @@ class ExampleRobot(object):
 
     
         if self.state == 'ask_age':
-            correct, name = self._ask_name()
+            correct, age = self._ask_age()
             while self.state == 'ask_age':
                 if correct == True:
-                    # self.recognise(name)
+                    # self.recognise(age)
                     self.recognise()
                 else:
-                    self.ask_name_again()
+                    self.ask_age_again()
             print(self.state)
 
 
@@ -184,6 +181,7 @@ class ExampleRobot(object):
 
     def workout(self) -> None:
         self.action_runner.run_waiting_action('say', 'We are gonna work out together! We are going to do these movements.')
+
         # workout explanation starts
         # start workout sequence
         # Nao first says name of exxercise. Then demonstrates exercise. Counts down. 

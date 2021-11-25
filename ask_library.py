@@ -17,21 +17,26 @@ class AskLibrary:
         self.reset_recognition_management()
 
         if 'name' in self.user_model:
-            self.action_runner.run_waiting_action('say', 'Nice to meet you ' + self.user_model['name'])
+            # self.action_runner.run_waiting_action('say', 'Nice to meet you ' + self.user_model['name'])
+            return self.user_model['name']
         else:
-            self.action_runner.run_waiting_action('say', 'Nice to meet you')
+            # self.action_runner.run_waiting_action('say', 'Nice to meet you')
+            return 0
         
     def ask_age(self):
         while not self.recognition_manager['attempt_success'] and self.recognition_manager['attempt_number'] < 2:
-            self.action_runner.run_waiting_action('say', 'how old are you' + self.user_model['name']+'?')
+            # self.action_runner.run_waiting_action('say', 'how old are you' + self.user_model['name']+'?')
             self.action_runner.run_waiting_action('speech_recognition', 'answer_age', 5,
                                                     additional_callback=self.on_intent_age)
         self.reset_recognition_management()
 
         if 'age' in self.user_model:
-            self.action_runner.run_waiting_action('say', self.user_model['age']+'wow, you are getting old ' + self.user_model['name'])
+            # self.action_runner.run_waiting_action('say', self.user_model['age']+'wow, you are getting old ' + self.user_model['name'])
+            return self.user_model['age']
         else:
-            self.action_runner.run_waiting_action('say', 'you are getting old bro')
+            # self.action_runner.run_waiting_action('say', 'you are getting old bro')
+            return 0
+
 
     def ask_height(self):
         while not self.recognition_manager['attempt_success'] and self.recognition_manager['attempt_number'] < 2:
@@ -41,9 +46,11 @@ class AskLibrary:
         self.reset_recognition_management()
 
         if 'height' in self.user_model:
-            self.action_runner.run_waiting_action('say', str(self.user_model['height'])+'wow, you are tall ')
+            # self.action_runner.run_waiting_action('say', str(self.user_model['height'])+'wow, you are tall ')
+            return self.user_model['height']
         else:
-            self.action_runner.run_waiting_action('say', 'I did not get it, bro')
+            # self.action_runner.run_waiting_action('say', 'I did not get it, bro')
+            return 0
     
     def ask_weight(self):
         while not self.recognition_manager['attempt_success'] and self.recognition_manager['attempt_number'] < 5:
@@ -51,11 +58,14 @@ class AskLibrary:
             self.action_runner.run_waiting_action('speech_recognition', 'answer_weight', 5,
                                                     additional_callback=self.on_intent_weight)
         self.reset_recognition_management()
+        return self.user_model['weight']
 
         if 'weight' in self.user_model:
-            self.action_runner.run_waiting_action('say', str(self.user_model['weight'])+'wow, you are fat as fuck, my bro double cheese')
+            # self.action_runner.run_waiting_action('say', str(self.user_model['weight'])+'wow, you are fat as fuck, my bro double cheese')
+            return self.user_model['weight']
         else:
-            self.action_runner.run_waiting_action('say', 'I did not get it, bro')
+            # self.action_runner.run_waiting_action('say', 'I did not get it, bro')
+            return 0
     
     def ask_confirmation(self):
         while not self.recognition_manager['attempt_success'] and self.recognition_manager['attempt_number'] < 11:
@@ -65,13 +75,15 @@ class AskLibrary:
         self.reset_recognition_management()
 
         if 'Yes_No_answer' in self.user_model:
-            if self.user_model['Yes_No_answer']=='yes':
-                self.action_runner.run_waiting_action('say', 'Your answer was '+self.user_model['Yes_No_answer']+'. good! workout will begin')
-            if self.user_model['Yes_No_answer']=='no':
-                self.action_runner.run_waiting_action('say', 'Your answer was '+self.user_model['Yes_No_answer']+'. wow, you are fat as fuck, and you will continue to be')
+            return self.user_model['Yes_No_answer']
+            # if self.user_model['Yes_No_answer']=='yes':
+            #     self.action_runner.run_waiting_action('say', 'Your answer was '+ self.user_model['Yes_No_answer']+'. good! workout will begin')
+            # if self.user_model['Yes_No_answer']=='no':
+            #     self.action_runner.run_waiting_action('say', 'Your answer was '+self.user_model['Yes_No_answer']+'. wow, you are fat as fuck, and you will continue to be')
         
         else:
-            self.action_runner.run_waiting_action('say', 'I did not get it, bro')
+            # self.action_runner.run_waiting_action('say', 'I did not get it, bro')
+            return 0
 
     def on_intent_name(self, detection_result: dict) -> None:
         #print("name - detection_result",detection_result)
