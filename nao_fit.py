@@ -1,3 +1,4 @@
+import datetime
 from typing import Callable
 
 from utils.ask_library import AskLibrary
@@ -13,6 +14,7 @@ class NaoFit:
     """
     The NaoFit main class.
     Implements the whole flow of human-robot interaction using a state-machine scheme.
+    Nao-Fit does a workout with the user, depending on your BMI and age.
     """
 
     states = ['asleep', 'wake_up', 'introduce', 'ask_workout', 'ask_name', 'ask_age', 'recognise', 'ask_weight',
@@ -158,36 +160,57 @@ class NaoFit:
         return var
 
     def handle_wake_up(self) -> None:
+        """
+        Handles the necessary tasks when nao wakes up
+        """
         self.action_runner.load_waiting_action('set_language', 'en-US')
         self.action_runner.load_waiting_action('wake_up')
         print("\n\n state: awake \n\n")
         self.action_runner.run_loaded_actions()
 
     def handle_introduction(self) -> None:
+        """
+        Initiates an introduction
+        """
         self.action_runner.run_waiting_action('say_animated',
                                               'Hi I am Nao-Fit. Your personal trainer. Let\'s be workout buddies!')
         return None
 
     def handle_ask_workout(self):
+        """
+        Asks if the user is ready to work out
+        """
         self.action_runner.run_waiting_action('say', 'Are you ready for the workout?')
         confirm = self.ask_until_answer(self.ask_nao.ask_confirmation)
         return confirm
 
     def handle_ask_name(self):
+        """
+        Asks for the name of the user
+        """
         self.action_runner.run_waiting_action('say_animated', 'Could you please tell me your name?')
         name = self.ask_until_answer(self.ask_nao.ask_name)
         return name
 
     def handle_ask_again(self):
+        """
+        Asks if the user could repeat the answer
+        """
         self.action_runner.run_waiting_action('say_animated', 'I did not understand that. Could you repeat that?')
         return
 
     def handle_ask_age(self):
+        """
+        Asks for the age of the user
+        """
         self.action_runner.run_waiting_action('say_animated', 'Awesome. And how old are you?')
         age = self.ask_until_answer(self.ask_nao.ask_age)
         return age
 
     def handle_recognise(self):
+        """
+        Checks if the user is already in the databse
+        """
         df_dummy_database = self.file
         if self.name in df_dummy_database.loc[df_dummy_database['age'] == self.age].values:
             self.action_runner.run_waiting_action('say_animated', f'Welcome Back {self.name}!')
@@ -199,26 +222,42 @@ class NaoFit:
         #     self.recognise()
 
     def handle_ask_height(self):
+        """
+        Asks for the height of the user
+        """
         self.action_runner.run_waiting_action('say_animated', 'Thank you! Now please tell me your height?')
         height = self.ask_until_answer(self.ask_nao.ask_height)
         return height
 
     def handle_ask_weight(self):
+        """
+        Asks for the weight of the user
+        """
         self.action_runner.run_waiting_action('say_animated', f'Incredibble {self.name}! Lastly I would like to know'
                                                               'how much you weight? ')
         weight = self.ask_until_answer(self.ask_nao.ask_weight)
         return weight
 
     def reset_recognition_management(self) -> None:
+        """
+        Resets the recognition manager
+        """
         self.recognition_manager.update({'attempt_success': False, 'attempt_number': 0})
 
     def handle_saying_goodbye(self) -> None:
+        """
+       Says goodbye to the user
+        """
         print("\n\n NAO: \"Well this was fun.\"\n\"I will see you around.\" \n\n")
         self.action_runner.run_waiting_action('say_animated', 'I will see you around.')
         self.action_runner.run_waiting_action('rest')
         return
 
     def handle_workout(self) -> None:
+        """
+        Calculates the BMI based on the values that are given by the user.
+        Initiates a workout based on the BMI.
+        """
         self.action_runner.run_waiting_action('say',
                                               'We are gonna work out together! We are going to do these movements.')
 
@@ -243,10 +282,14 @@ class NaoFit:
         # Nao first says name of exxercise. Then demonstrates exercise. Counts down. 
 
     def handle_finish(self) -> None:
+        """
+        Finishes the whole flow and stores information into the dataframe
+        """
         self.action_runner.run_waiting_action('say', ' This was so much fun!')
 
         # now write everything into the database
-        df_user_info = pd.DataFrame({self.name, self.age, self.height, self.weight})
+        df_user_info = pd.DataFrame({'name': self.name, 'age': self.age, 'height': self.height, 'weight:': self.weight,
+                                     'date': datetime.date.today()})
         df_dummy_db = self.file.append(df_user_info)
         df_dummy_db.to_csv('data/user_data.csv')
         return None
