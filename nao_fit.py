@@ -296,10 +296,16 @@ class NaoFit:
 
 
 class StateMachineInit(object):
+    """
+    A simple class that initiates the Nao-Fit when this file is executed from the console
+    """
     def __init__(self, server_ip: str, dialogflow_key_file: str, dialogflow_agent_id: str):
         self.sic = BasicSICConnector(server_ip, 'en-US', dialogflow_key_file, dialogflow_agent_id)
 
     def run(self) -> None:
+        """
+        Starts the whole procedure and stops it when finished.
+        """
         self.sic.start()
         self.robot = NaoFit(self.sic)
         print('byeee')
