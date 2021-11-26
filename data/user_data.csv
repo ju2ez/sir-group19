@@ -1,0 +1,15 @@
+,0,0,0.1,Date,Unnamed: 0,Unnamed: 0.1,age,height,name,weight
+0,,,,2021-11-26,0.0,0.0,10.0,160.0,Julian,60.0
+1,,,,2021-11-26,1.0,1.0,12.0,150.0,Max,20.0
+2,,,False,,2.0,0.0,,,,
+3,,,10,,3.0,1.0,,,,
+4,,,50.0,,4.0,2.0,,,,
+5,,,Australian,,5.0,3.0,,,,
+6,,"functools.partial(<bound method Event.trigger of <Event('weight')@139833245683776>>, <__main__.NaoFit object at 0x7f2d788fbc10>)",,,0.0,,,,,
+7,,"functools.partial(<bound method Event.trigger of <Event('name')@139833245621552>>, <__main__.NaoFit object at 0x7f2d788fbc10>)",,,1.0,,,,,
+8,,"functools.partial(<bound method Event.trigger of <Event('height')@139833245622128>>, <__main__.NaoFit object at 0x7f2d788fbc10>)",,,2.0,,,,,
+9,,"functools.partial(<bound method Event.trigger of <Event('age')@139833245621696>>, <__main__.NaoFit object at 0x7f2d788fbc10>)",,,3.0,,,,,
+0,50.0,,,,,,,,,
+1,180.0,,,,,,,,,
+2,Julian,,,,,,,,,
+3,10,,,,,,,,,
