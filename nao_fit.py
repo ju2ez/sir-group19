@@ -262,23 +262,24 @@ class NaoFit:
         self.action_runner.run_waiting_action('say',
                                               'We are gonna work out together! We are going to do these movements.')
 
-        # TODO: select workout here based on age, weight, height
-
-        # calculate BMI
-        user_bmi = float(self.weight)/(float(self.height)*float(self.height))
-        
-        try:
-            # dummy_bmi = float(self.age) + float(self.height) + float(self.weight)
-            
-            if user_bmi > 50:
-                self.action_runner.run_waiting_action('do_gesture', "workout1/behavior_1")
-            else:
-                # TODO: create and add gestures for workout2
-                self.action_runner.run_waiting_action('do_gesture', 'workout1/behavior_1')
-        except:
+        user_bmi = int(float(self.weight) / (float(self.height) * float(self.height)))
+        if user_bmi < 26:
             self.action_runner.run_waiting_action('do_gesture', "workout1/behavior_1")
+        else:
+            self.action_runner.run_waiting_action('do_gesture', 'workout1/behavior_1')
+
+        # try:
+            
+        #     if user_bmi > 50:
+        #         self.action_runner.run_waiting_action('do_gesture', "workout1/behavior_1")
+        #     else:
+        #         # TODO: create and add gestures for workout2
+        #         self.action_runner.run_waiting_action('do_gesture', 'workout1/behavior_1')
+        # except:
+        #     self.action_runner.run_waiting_action('do_gesture', "workout1/behavior_1")
 
         # ToDO: wait here until the gesture is completly finished!
+
 
         # workout explanation starts
         # start workout sequence
