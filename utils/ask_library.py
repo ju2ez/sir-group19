@@ -167,10 +167,9 @@ class AskLibrary:
         Overrides the detection_results :dict by setting 'attempt_success' either to true or false and the
         'Yes_No_Answer' either to Yes or No.
         """
-        #print(detection_result)
+        #print("yes_no-detection_result",detection_result)
         if detection_result and 'parameters' in detection_result and 'yes' in detection_result['parameters'] and 'no' in \
                 detection_result['parameters']:
-            #print("okay great")
 
             if detection_result['parameters']['yes'] == '' and detection_result['parameters']['no'] != '':
                 self.user_model['Yes_No_answer'] = 'no'
