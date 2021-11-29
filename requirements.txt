@@ -4,3 +4,6 @@ transitions~=0.8
 protobuf~=3.19
 simplejson~=3.17
 pandas
+python-dateutils
+numpy
+pytz
