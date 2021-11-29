@@ -109,6 +109,7 @@ class NaoFit:
 
         if self.state == 'recognise':
             print(self.state)
+            # Todo Fix recognition
             recognise = self.handle_recognise()
             if recognise is False:
                 self.height()
@@ -266,7 +267,7 @@ class NaoFit:
         Initiates a workout based on the BMI.
         """
         self.action_runner.run_waiting_action('say',
-                                              'We are gonna work out together! We are going to do these movements.')
+                                              'That is so nice. We are gonna work out together!')
 
         user_bmi = int(float(self.weight) / (float(self.height) * float(self.height)))
         if user_bmi < 26:
