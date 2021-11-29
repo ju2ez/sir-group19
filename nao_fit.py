@@ -81,7 +81,6 @@ class NaoFit:
         if self.state == 'ask_name':
             print(self.state)
             # print(name)
-
             name = self.handle_ask_name()
             if name is False:
                 self.handle_ask_again()
@@ -195,7 +194,6 @@ class NaoFit:
         """
         Asks for the name of the user
         """
-
         self.action_runner.run_waiting_action('say_animated', 'Could you please tell me your name?')
         name = self.ask_until_answer(self.ask_nao.ask_name)
         return name
