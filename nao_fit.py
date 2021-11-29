@@ -1,4 +1,5 @@
 import datetime
+import time
 from typing import Callable
 
 from utils.ask_library import AskLibrary
@@ -99,6 +100,11 @@ class NaoFit:
 
                 # TODO: add the possiblity to call parents if age is too low
                 self.age = age
+                if self.age <= 8:
+                    self.action_runner.run_waiting_action('say', 'Great, please ask your parents to come here.')
+                    self.action_runner.run_waiting_action('say', 'I will wait until your parents are here')
+                    time.sleep(5) 
+
                 self.rec()
 
         if self.state == 'recognise':
