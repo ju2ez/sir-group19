@@ -270,12 +270,17 @@ class NaoFit:
 
         self.action_runner.run_waiting_action('say',
                                     f'I will select a workout based on your personal information.')
-        user_bmi = int(float(self.weight) / (float(self.height) * float(self.height)))
-        if user_bmi < 26:
-            self.action_runner.run_waiting_action('do_gesture', "workout1_2/behavior_1")
-        else:
-            self.action_runner.run_waiting_action('do_gesture', 'workout1_2/behavior_1')
 
+
+        # TODO fix this
+        try:
+            user_bmi = int(float(self.weight) / (float(self.height) * float(self.height)))
+            if user_bmi < 26:
+                self.action_runner.run_waiting_action('do_gesture', "workout1_2/behavior_1")
+            else:
+                self.action_runner.run_waiting_action('do_gesture', 'workout1_2/behavior_1')
+        except:
+                self.action_runner.run_waiting_action('do_gesture', "workout1_2/behavior_1")
         # try:
             
         #     if user_bmi > 50:
