@@ -265,10 +265,12 @@ class NaoFit:
         # TODO: select workout here based on age, weight, height
 
         # calculate BMI
+        user_bmi = float(self.weight)/(float(self.height)*float(self.height))
+        
         try:
-            dummy_bmi = float(self.age) + float(self.height) + float(self.weight)
-
-            if dummy_bmi > 50:
+            # dummy_bmi = float(self.age) + float(self.height) + float(self.weight)
+            
+            if user_bmi > 50:
                 self.action_runner.run_waiting_action('do_gesture', "workout1/behavior_1")
             else:
                 # TODO: create and add gestures for workout2
