@@ -232,7 +232,7 @@ class NaoFit:
         Asks for the height of the user
         """
         time.sleep(1)
-        self.action_runner.run_waiting_action('say_animated', 'Thank you! Now please tell me your height?')
+        self.action_runner.run_waiting_action('say_animated', 'Thank you! Now please tell me your height in centimeter?')
         height = self.ask_until_answer(self.ask_nao.ask_height)
         return height
 
@@ -241,7 +241,7 @@ class NaoFit:
         Asks for the weight of the user
         """
         self.action_runner.run_waiting_action('say_animated', f'Incredibble {self.name}! Lastly I would like to know'
-                                                              'how much you weight? ')
+                                                              'how much you weight in kilos? ')
         weight = self.ask_until_answer(self.ask_nao.ask_weight)
         return weight
 
@@ -266,8 +266,10 @@ class NaoFit:
         Initiates a workout based on the BMI.
         """
         self.action_runner.run_waiting_action('say',
-                                              'That is so nice. We are gonna work out together!')
+                                              f'That is so nice. We are gonna work out together {self.name}!')
 
+        self.action_runner.run_waiting_action('say',
+                                    f'I will select a workout based on your personal information.')
         user_bmi = int(float(self.weight) / (float(self.height) * float(self.height)))
         if user_bmi < 26:
             self.action_runner.run_waiting_action('do_gesture', "workout1_2/behavior_1")
