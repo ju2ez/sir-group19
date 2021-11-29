@@ -8,3 +8,4 @@ After <code> pip install -r requirements.txt </code> you should be able to run t
 
 
 Have Fun :) 
+git
