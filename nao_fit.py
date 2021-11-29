@@ -231,6 +231,7 @@ class NaoFit:
         """
         Asks for the height of the user
         """
+        time.sleep(1)
         self.action_runner.run_waiting_action('say_animated', 'Thank you! Now please tell me your height?')
         height = self.ask_until_answer(self.ask_nao.ask_height)
         return height
@@ -269,9 +270,9 @@ class NaoFit:
 
         user_bmi = int(float(self.weight) / (float(self.height) * float(self.height)))
         if user_bmi < 26:
-            self.action_runner.run_waiting_action('do_gesture', "workout1/behavior_1")
+            self.action_runner.run_waiting_action('do_gesture', "workout1_2/behavior_1")
         else:
-            self.action_runner.run_waiting_action('do_gesture', 'workout1/behavior_1')
+            self.action_runner.run_waiting_action('do_gesture', 'workout1_2/behavior_1')
 
         # try:
             
