@@ -61,7 +61,7 @@ class AskLibrary:
         The height of the person as :str or False
         """
         while not self.recognition_manager['attempt_success'] and self.recognition_manager['attempt_number'] < 2:
-            self.action_runner.run_waiting_action('say', 'how tall are you, bro ?')
+            #self.action_runner.run_waiting_action('say', 'how tall are you, bro ?')
             self.action_runner.run_waiting_action('speech_recognition', 'answer_height', 5,
                                                   additional_callback=self.on_intent_height)
         self.reset_recognition_management()
