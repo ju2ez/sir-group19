@@ -99,7 +99,7 @@ class NaoFit:
                 # set the age for later database usage
 
                 # TODO: add the possiblity to call parents if age is too low
-                self.age = age
+                self.age = int(age)
                 if self.age <= 8:
                     self.action_runner.run_waiting_action('say', 'Great, please ask your parents to come here.')
                     self.action_runner.run_waiting_action('say', 'I will wait until your parents are here')
