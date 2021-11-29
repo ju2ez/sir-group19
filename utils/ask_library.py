@@ -25,12 +25,8 @@ class AskLibrary:
                                                   additional_callback=self.on_intent_name)
         self.reset_recognition_management()
 
-        if 'name' in self.user_model:
-            # self.action_runner.run_waiting_action('say', 'Nice to meet you ' + self.user_model['name'])
-            return self.user_model['name']
-        else:
-            # self.action_runner.run_waiting_action('say', 'Nice to meet you')
-            return False
+        if 'name' in self.user_model: return self.user_model['name']
+        else: return False
 
     def ask_age(self):
         """
@@ -45,13 +41,8 @@ class AskLibrary:
                                                   additional_callback=self.on_intent_age)
         self.reset_recognition_management()
 
-        if 'age' in self.user_model:
-            # self.action_runner.run_waiting_action('say', self.user_model['age']+'wow, you are getting old ' +
-            # self.user_model['name'])
-            return self.user_model['age']
-        else:
-            # self.action_runner.run_waiting_action('say', 'you are getting old bro')
-            return False
+        if 'age' in self.user_model: return self.user_model['age']
+        else: return False
 
     def ask_height(self):
         """
@@ -66,12 +57,8 @@ class AskLibrary:
                                                   additional_callback=self.on_intent_height)
         self.reset_recognition_management()
 
-        if 'height' in self.user_model:
-            # self.action_runner.run_waiting_action('say', str(self.user_model['height'])+'wow, you are tall ')
-            return self.user_model['height']
-        else:
-            # self.action_runner.run_waiting_action('say', 'I did not get it, bro')
-            return False
+        if 'height' in self.user_model: return self.user_model['height']
+        else: return False
 
     def ask_weight(self):
         """
@@ -80,22 +67,14 @@ class AskLibrary:
         Returns:
         The weight of the person as :str or False
         """
-
-        #TODO: fix this functioN!
-        return 50.
-
         while not self.recognition_manager['attempt_success'] and self.recognition_manager['attempt_number'] < 5:
-            self.action_runner.run_waiting_action('say', 'What is your weight, bro?')
+            #self.action_runner.run_waiting_action('say', 'What is your weight, bro?')
             self.action_runner.run_waiting_action('speech_recognition', 'answer_weight', 5,
                                                   additional_callback=self.on_intent_weight)
         self.reset_recognition_management()
-        if 'weight' in self.user_model:
-            # self.action_runner.run_waiting_action('say', str(self.user_model['weight'])+'wow, you are fat as fuck,
-            # my bro double cheese')
-            return self.user_model['weight']
-        else:
-            # self.action_runner.run_waiting_action('say', 'I did not get it, bro')
-            return False
+       
+        if 'weight' in self.user_model: return self.user_model['weight']
+        else: return False
 
     def ask_confirmation(self):
         """
@@ -109,15 +88,9 @@ class AskLibrary:
             self.action_runner.run_waiting_action('speech_recognition', 'Yes_No_answer', 5,
                                                   additional_callback=self.on_intent_yes_no)
         self.reset_recognition_management()
-        if 'Yes_No_answer' in self.user_model:
-            return self.user_model['Yes_No_answer']
-            # if self.user_model['Yes_No_answer']=='yes': self.action_runner.run_waiting_action('say', 'Your answer
-            # was '+ self.user_model['Yes_No_answer']+'. good! workout will begin') if self.user_model[
-            # 'Yes_No_answer']=='no': self.action_runner.run_waiting_action('say', 'Your answer was
-            # '+self.user_model['Yes_No_answer']+'. wow, you are fat as fuck, and you will continue to be')
-        else:
-            # self.action_runner.run_waiting_action('say', 'I did not get it, bro')
-            return False
+
+        if 'Yes_No_answer' in self.user_model: return self.user_model['Yes_No_answer']
+        else: return False
 
     def on_intent_name(self, detection_result: dict) -> None:
         """
@@ -162,7 +135,7 @@ class AskLibrary:
         Overrides the detection_results :dict by setting 'attempt_success' either to true or false and the
         'height' to the :float valued height.
         """
-        # print("height-detection_result",detection_result)
+        #print("height-detection_result",detection_result)
         if detection_result and 'parameters' in detection_result and 'height' in detection_result['parameters'] and \
                 detection_result['parameters']['height'] != []:
             self.user_model['height'] = str(detection_result['parameters']['height'][0])
@@ -178,7 +151,7 @@ class AskLibrary:
         Overrides the detection_results :dict by setting 'attempt_success' either to true or false and the
         'weight' to the :float valued weight.
         """
-        # print("weight-detection_result",detection_result)
+        #print("weight-detection_result",detection_result)
         if detection_result and 'parameters' in detection_result and 'weight' in detection_result['parameters'] and \
                 detection_result['parameters']['weight'] != []:
             self.user_model['weight'] = str(detection_result['parameters']['weight'][0])
