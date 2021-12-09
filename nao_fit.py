@@ -1,10 +1,11 @@
 import datetime
 import time
 from typing import Callable
+import math
 
 from utils.ask_library import AskLibrary
 from transitions import Machine
-
+#from social_interaction_cloud.basic_connector import BasicSICConnector, RobotPosture
 from social_interaction_cloud.action import ActionRunner
 from social_interaction_cloud.basic_connector import BasicSICConnector
 
@@ -132,6 +133,9 @@ class NaoFit:
         if self.state == 'workout':
             print(self.state)
             self.handle_workout()
+
+            #self.action_runner.run_waiting_action('say', 'I am here')
+
             self.workout_done()
 
         if self.state == 'finish_workout':
@@ -266,37 +270,17 @@ class NaoFit:
         Initiates a workout based on the BMI.
         """
         self.action_runner.run_waiting_action('say',
-                                              f'That is so nice. We are gonna work out together {self.name}!')
-
-        self.action_runner.run_waiting_action('say',
-                                    f'I will select a workout based on your personal information.')
-
-
-        # TODO fix this
+            f'I will select a workout based on your personal information.')
         try:
-            user_bmi = int(float(self.weight) / (float(self.height) * float(self.height)))
-            if user_bmi < 26:
-                self.action_runner.run_waiting_action('do_gesture', "workout1_2/behavior_1")
+            user_bmi = int(float(self.weight) / ((float(self.height)*0.01)**2))
+            if user_bmi > 30:
+                self.action_runner.run_waiting_action('do_gesture', "finalworkout_1/behavior_1")
             else:
-                self.action_runner.run_waiting_action('do_gesture', 'workout1_2/behavior_1')
+                self.action_runner.run_waiting_action('do_gesture', 'finalworkout_2/behavior_1')
         except:
-                self.action_runner.run_waiting_action('do_gesture', "workout1_2/behavior_1")
-        # try:
-            
-        #     if user_bmi > 50:
-        #         self.action_runner.run_waiting_action('do_gesture', "workout1/behavior_1")
-        #     else:
-        #         # TODO: create and add gestures for workout2
-        #         self.action_runner.run_waiting_action('do_gesture', 'workout1/behavior_1')
-        # except:
-        #     self.action_runner.run_waiting_action('do_gesture', "workout1/behavior_1")
+                self.action_runner.run_waiting_action('do_gesture', "finalworkout_1/behavior_1")
+    
 
-        # ToDO: wait here until the gesture is completly finished!
-
-
-        # workout explanation starts
-        # start workout sequence
-        # Nao first says name of exxercise. Then demonstrates exercise. Counts down. 
 
     def handle_finish(self) -> None:
         """
@@ -305,10 +289,10 @@ class NaoFit:
         self.action_runner.run_waiting_action('say', ' This was so much fun!')
 
         # now write everything into the database
-        df_user_info = pd.DataFrame({'name': self.name, 'age': self.age, 'height': self.height, 'weight:': self.weight,
-                                     'date': datetime.date.today()})
-        df_dummy_db = self.file.append(df_user_info)
-        df_dummy_db.to_csv('data/user_data.csv')
+        #df_user_info = pd.DataFrame({'name': self.name, 'age': self.age, 'height': self.height, 'weight:': self.weight,
+        #                             'date': datetime.date.today()})
+        #df_dummy_db = self.file.append(df_user_info)
+        #df_dummy_db.to_csv('data/user_data.csv')
         return None
 
 
